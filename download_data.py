@@ -2,6 +2,7 @@ import os
 import requests
 import gzip
 
+
 def download_and_extract(url, target_path):
     def extract():
         print('Extracting {}...'.format(target_path))
@@ -10,7 +11,7 @@ def download_and_extract(url, target_path):
             with open(target_path[:-3], 'wb') as f_out:
                 f_out.write(f_in.read())
 
-    #check if file already exists
+    # check if file already exists
     if os.path.exists(target_path):
         print('{} already exists, skipping download'.format(target_path))
         extract()
@@ -21,12 +22,13 @@ def download_and_extract(url, target_path):
         print('Downloading and extracting {}...'.format(url))
         with open(target_path, 'wb') as f:
             f.write(response.raw.read())
-        print('Done!\n')
         extract()
+        print('Done!\n')
     else:
         raise 'HTTP response code is not 200'
 
-#check if datafolder exists
+
+# check if datafolder exists
 if not os.path.exists('data'):
     os.makedirs('data')
 
@@ -57,6 +59,3 @@ download_and_extract(ratings_url, target_path6)
 akas_url = 'https://datasets.imdbws.com/title.akas.tsv.gz'
 target_path7 = 'data/title.akas.tsv.gz'
 download_and_extract(akas_url, target_path7)
-
-
-
