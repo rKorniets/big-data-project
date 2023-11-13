@@ -1,18 +1,27 @@
 import os
 import requests
+import tarfile
 
 def download_and_extract(url, target_path):
+    def extract():
+        print('Extracting {}...'.format(target_path))
+        # for tar files
+        tar = tarfile.open(target_path, "r:")
+        tar.extractall('.\data')
+        tar.close()
+
     #check if file already exists
     if os.path.exists(target_path):
         print('{} already exists, skipping download'.format(target_path))
         return
-    
+
     response = requests.get(url, stream=True)
     if response.status_code == 200:
         print('Downloading and extracting {}...'.format(url))
         with open(target_path, 'wb') as f:
             f.write(response.raw.read())
         print('Done!\n')
+        extract()
     else:
         raise 'HTTP response code is not 200'
 
