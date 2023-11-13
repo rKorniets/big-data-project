@@ -1,18 +1,19 @@
 import os
 import requests
-import tarfile
+import gzip
 
 def download_and_extract(url, target_path):
     def extract():
         print('Extracting {}...'.format(target_path))
-        # for tar files
-        tar = tarfile.open(target_path, "r:")
-        tar.extractall('.\data')
-        tar.close()
+        # for .gz files
+        with gzip.open(target_path, 'rb') as f_in:
+            with open(target_path[:-3], 'wb') as f_out:
+                f_out.write(f_in.read())
 
     #check if file already exists
     if os.path.exists(target_path):
         print('{} already exists, skipping download'.format(target_path))
+        extract()
         return
 
     response = requests.get(url, stream=True)
