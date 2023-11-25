@@ -19,8 +19,8 @@ akas_schema = t.StructType([
     t.StructField('title', t.StringType(), True),
     t.StructField('region', t.StringType(), True),
     t.StructField('language', t.StringType(), True),
-    t.StructField('types', t.ArrayType(t.StringType()), True),
-    t.StructField('attributes', t.ArrayType(t.StringType()), True),
+    t.StructField('types', t.StringType(), True),
+    t.StructField('attributes', t.StringType(), True),
     t.StructField('isOriginalTitle', t.BooleanType(), True)
     ])
 
@@ -48,7 +48,7 @@ basics_schema = t.StructType([
     t.StructField('startYear', t.IntegerType(), True),
     t.StructField('endYear', t.IntegerType(), True),
     t.StructField('runtimeMinutes', t.IntegerType(), True),
-    t.StructField('genres', t.ArrayType(t.StringType()), True)
+    t.StructField('genres', t.StringType(), True)
     ])
 
 
@@ -61,8 +61,8 @@ basics_schema = t.StructType([
 
 crew_schema = t.StructType([
     t.StructField('tconst', t.StringType(), False),
-    t.StructField('directors', t.ArrayType(t.StringType()), True),
-    t.StructField('writers', t.ArrayType(t.StringType()), True)
+    t.StructField('directors', t.StringType(), True),
+    t.StructField('writers', t.StringType(), True)
     ])
 
 
@@ -132,6 +132,6 @@ name_schema = t.StructType([
     t.StructField('primaryName', t.StringType(), True),
     t.StructField('birthYear', t.IntegerType(), True),
     t.StructField('deathYear', t.IntegerType(), True),
-    t.StructField('primaryProfession', t.ArrayType(t.StringType()), True),
-    t.StructField('knownForTitles', t.ArrayType(t.StringType()), True)
+    t.StructField('primaryProfession', t.StringType(), True),
+    t.StructField('knownForTitles', t.StringType(), True)
     ])
