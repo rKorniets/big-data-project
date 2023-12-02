@@ -21,7 +21,7 @@ akas_schema = t.StructType([
     t.StructField('language', t.StringType(), True),
     t.StructField('types', t.StringType(), True),
     t.StructField('attributes', t.StringType(), True),
-    t.StructField('isOriginalTitle', t.BooleanType(), True)
+    t.StructField('isOriginalTitle', t.IntegerType(), True)
     ])
 
 
