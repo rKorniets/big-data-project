@@ -4,10 +4,16 @@ import pyspark.sql.types as t
 import pyspark.sql.functions as f
 from schemas.imdb_schema import akas_schema, basics_schema, crew_schema, episode_schema, principals_schema, ratings_schema, name_schema
 
+
 def get_project_dir():
+    recursion_limit = 32
     cur_dir = pathlib.Path().absolute()
-    while cur_dir.name != 'big-data-project':
+    i = 0
+    while cur_dir.name != 'big-data-project' and i < recursion_limit:
         cur_dir = cur_dir.parent
+        i += 1
+    if i == recursion_limit:
+        raise Exception('Recursion limit reached, project directory not found')
     return cur_dir
 
 project_dir = get_project_dir()
@@ -18,6 +24,7 @@ def get_akas_df(spark):
     df = spark.read.csv(str(project_dir) + '/data/title.akas.tsv', sep=r'\t', schema=akas_schema, header=True)
     df = df.withColumn('types', f.split(df.types, ','))
     df = df.withColumn('attributes', f.split(df.attributes, ','))
+    df = df.withColumn('isOriginalTitle', f.when(df.isOriginalTitle == 1, True).otherwise(False))
     return df
 
 def get_basics_df(spark):
